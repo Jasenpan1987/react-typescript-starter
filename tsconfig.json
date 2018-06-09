@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es5",
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "types": [
+      "webpack-env"
+    ],
+    "paths": {
+      "Helpers/*": [
+        "src/helpers/*"
+      ],
+      "UI/*": [
+        "src/ui/*"
+      ],
+      "shared/*": [
+        "src/shared/*"
+      ],
+      "store": [
+        "src/store"
+      ]
+    },
+  },
+  "exclude": ["node_modules"],
+  "include": [
+    "src"
+  ]
+}
