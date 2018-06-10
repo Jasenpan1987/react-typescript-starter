@@ -1,4 +1,5 @@
 const root = require("./hepers").root;
+const path = require("path")
 
 module.exports = {
   entry: root("src", "index.tsx"),
@@ -17,12 +18,14 @@ module.exports = {
       {
         test: /tsx?/,
         exclude: /node_modules/,
-        use: {
-          loader: "ts-loader",
-          options: {
-            configFile: "tsconfig.json"
+        use: [
+          {
+            loader: "awesome-typescript-loader",
+          },
+          {
+            loader: "babel-loader"
           }
-        },
+        ],
       },
       {
         test: /scss$/,
@@ -33,6 +36,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
+      'babel-core': path.resolve(
+        path.join(__dirname, './node_modules/@babel/core'),
+      ),
       Helpers: root("src", "helpers"),
       UI: root("src", "ui"),
       shared: root("src", "shared"),
