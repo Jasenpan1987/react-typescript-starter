@@ -1,6 +1,4 @@
-const path = require("path")
 const root = require("./hepers").root;
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: root("src", "index.tsx"),
@@ -40,5 +38,5 @@ module.exports = {
       shared: root("src", "shared"),
       store: root("src", "store")
     }
-  },
+  }
 }
