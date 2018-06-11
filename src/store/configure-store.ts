@@ -2,7 +2,7 @@ import {
   createStore, applyMiddleware, StoreEnhancer, StoreEnhancerStoreCreator, compose
 } from "redux";
 import thunk from "redux-thunk";
-import { rootReducer, ApplicationState } from "./root-reducer";
+import { buildRootReducer, ApplicationState, reducers } from "./root-reducer";
 import { IEventState, INameState } from "../components/pages/events/model";
 
 export type AppThunkAction<TAction> = (dispatch: (action: TAction) => void, getState: () => ApplicationState) => void;
@@ -27,12 +27,12 @@ export function configureStore(initState: ApplicationState = defaultState) {
   )(createStore) as any;
 
   // const store = createStoreWithMiddleware(allReducers, initialState) as Store<ApplicationState>;
-  const store = createStoreWithMiddleware(rootReducer, initState);
+  const store = createStoreWithMiddleware(buildRootReducer(reducers), initState);
 
   if (module.hot) {
     module.hot.accept("./root-reducer", () => {
       const nextRootReducer = require("./root-reducer");
-      store.replaceReducer(nextRootReducer);
+      store.replaceReducer(buildRootReducer(nextRootReducer.reducers));
     });
   }
 

@@ -33,7 +33,7 @@ const getDummyEvents = () => {
       if (rand > 0.5) {
         resolve([
           { name: "foo" },
-          { name: "bar2" }
+          { name: "bar4" }
         ]);
       } else {
         reject({

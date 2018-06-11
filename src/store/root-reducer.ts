@@ -1,4 +1,4 @@
-import { Reducer, combineReducers } from "redux";
+import { Reducer, combineReducers, ReducersMapObject } from "redux";
 import { eventsReducer as events, IEventState, nameReducer as names, INameState } from "../components/pages/events";
 
 export interface ApplicationState {
@@ -11,4 +11,10 @@ export const reducers = {
   names
 };
 
-export const rootReducer: Reducer<ApplicationState> = combineReducers(reducers as any);
+export function buildRootReducer(allReducers: any) {
+  return combineReducers<ApplicationState>(
+    Object.assign({}, allReducers
+      // , { routing: routerReducer, form: formReducer }
+    )
+  );
+}
