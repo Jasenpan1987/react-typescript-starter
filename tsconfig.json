@@ -26,7 +26,7 @@
       "shared/*": [
         "src/shared/*"
       ],
-      "Store": [
+      "store": [
         "src/store"
       ]
     },
