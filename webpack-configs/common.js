@@ -40,9 +40,10 @@ module.exports = {
         path.join(__dirname, './node_modules/@babel/core'),
       ),
       Helpers: root("src", "helpers"),
-      UI: root("src", "ui"),
-      shared: root("src", "shared"),
-      store: root("src", "store")
+      UI: root("src", "components/ui"),
+      Page: root("src", "components/pages"),
+      Shared: root("src", "shared"),
+      Store: root("src", "store")
     }
   }
 }

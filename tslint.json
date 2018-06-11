@@ -33,7 +33,7 @@
     "quotemark": [true, "double", "jsx-double"],
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "trailing-comma": [
-      true,
+      false,
       {
         "singleline": "never",
         "multiline": {
