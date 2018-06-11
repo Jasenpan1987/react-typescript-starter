@@ -1,7 +1,6 @@
 import { ThunkAction } from "redux-thunk";
 import { createAction, createActions, handleActions, handleAction } from "redux-actions";
-import { baseAction, Errors, AppThunkAction } from "Store";
-import { IEvent, IEventState } from "./model";
+import { IEvent, IEventState, IEventError } from "./model";
 
 enum LoadEventsTypes {
   LOAD_EVENTS_PENDING = "LOAD_EVENTS_PENDING",
@@ -15,33 +14,31 @@ const initState: IEventState = {
   errors: undefined
 };
 
-// type addUIMessagePayload = {
-//   text: string;
-//   type: "UIMessageType";
-// };
-// const addUIMessage = createAction<addUIMessagePayload, string, string>(
-//   "ADD_UI_MESSAGE", (text, type) => ({text, type})
-// );
+const loadEventsPending = createAction(LoadEventsTypes.LOAD_EVENTS_PENDING);
 
-const { loadEventsPending, loadEventsSuccess, loadEventsFailed } = createActions({
-  [LoadEventsTypes.LOAD_EVENTS_SUCCESS]: events => ({ events }),
-  [LoadEventsTypes.LOAD_EVENTS_FAILED]: errors => ({ errors }),
-}, LoadEventsTypes.LOAD_EVENTS_PENDING);
+const loadEventsSuccess = createAction(
+  LoadEventsTypes.LOAD_EVENTS_SUCCESS,
+  (events: IEvent[]) => events
+);
+
+const loadEventsFailed = createAction(
+  LoadEventsTypes.LOAD_EVENTS_FAILED,
+  (errors: any) => errors
+);
 
 const getDummyEvents = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise<IEvent[]>((resolve, reject) => {
     setTimeout(() => {
-
       const rand = Math.random();
-      if (rand > -1) {
+      if (rand > 0.5) {
         resolve([
-          { title: "foo" },
-          { title: "bar" }
+          { name: "foo" },
+          { name: "bar2" }
         ]);
       } else {
         reject({
           message: "not found"
-        });
+        } as IEventError);
       }
     }, 1000);
   });
@@ -51,10 +48,10 @@ export const loadEvents = (): ThunkAction<any, IEventState, null, any> => async 
   dispatch(loadEventsPending());
 
   try {
-    const data = await getDummyEvents();
+    const data: IEvent[] = await getDummyEvents();
     dispatch(loadEventsSuccess(data));
-  } catch (error) {
-    dispatch(loadEventsFailed(error));
+  } catch (errors) {
+    dispatch(loadEventsFailed(errors));
   }
 };
 

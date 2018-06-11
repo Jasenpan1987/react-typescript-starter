@@ -1,16 +1,14 @@
 import { Reducer, combineReducers } from "redux";
-import { eventsReducer as events, IEventState } from "../components/pages/events";
+import { eventsReducer as events, IEventState, nameReducer as names, INameState } from "../components/pages/events";
 
 export interface ApplicationState {
   events: IEventState;
+  names: INameState;
 }
 
 export const reducers = {
-  events
+  events,
+  names
 };
 
-// export const createRootReducer = (rootReducer: {[key: string]: Reducer}) => {
-//   return combineReducers(rootReducer);
-// };
-
-export const rootReducer: Reducer<ApplicationState> = combineReducers(reducers);
+export const rootReducer: Reducer<ApplicationState> = combineReducers(reducers as any);

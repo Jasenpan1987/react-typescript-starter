@@ -2,8 +2,17 @@ export interface IEvent {
   name: string;
 }
 
+export interface IEventError {
+  [key: string]: string;
+}
+
 export interface IEventState {
   events: IEvent[];
   pending: false;
-  errors?: { [key: string]: string } | undefined;
+  errors?: IEventError | undefined;
+}
+
+export interface INameState {
+  firstName: string;
+  lastName: string;
 }

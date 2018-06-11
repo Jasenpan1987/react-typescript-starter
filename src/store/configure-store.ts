@@ -1,21 +1,33 @@
 import {
-  createStore, applyMiddleware
+  createStore, applyMiddleware, StoreEnhancer, StoreEnhancerStoreCreator, compose
 } from "redux";
 import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
 import { rootReducer, ApplicationState } from "./root-reducer";
-
-// const defaultState: ApplicationState = {
-//   events: []
-// };
+import { IEventState, INameState } from "../components/pages/events/model";
 
 export type AppThunkAction<TAction> = (dispatch: (action: TAction) => void, getState: () => ApplicationState) => void;
 
-export function configureStore(initState: ApplicationState) {
-  const store = createStore(rootReducer, initState,
-    composeWithDevTools(applyMiddleware(
-      thunk
-  )));
+const defaultState = {
+  events: {
+    events: [],
+    pending: false,
+    errors: undefined
+  } as IEventState,
+  names: {
+    firstName: "",
+    lastName: ""
+  } as INameState
+};
+
+export function configureStore(initState: ApplicationState = defaultState) {
+  const devToolsExtension = window && (window as any).__REDUX_DEVTOOLS_EXTENSION__ as () => StoreEnhancer;
+  const createStoreWithMiddleware = compose(
+    applyMiddleware(thunk),
+    devToolsExtension ? devToolsExtension() : <S>(next: StoreEnhancerStoreCreator<S>) => next
+  )(createStore) as any;
+
+  // const store = createStoreWithMiddleware(allReducers, initialState) as Store<ApplicationState>;
+  const store = createStoreWithMiddleware(rootReducer, initState);
 
   if (module.hot) {
     module.hot.accept("./root-reducer", () => {

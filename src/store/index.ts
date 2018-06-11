@@ -9,13 +9,8 @@ export type AppThunkAction =
 
 export { configureStore, ApplicationState };
 
-export type Errors = {
-  code?: string;
-  message: string;
-};
-
-export type baseAction<T, Payload, Meta> = {
-  type: T;
-  payload?: Payload;
-  meta?: Meta;
-};
+// export type baseAction<T, Payload, Meta> = {
+//   type: T;
+//   payload?: Payload;
+//   meta?: Meta;
+// };
