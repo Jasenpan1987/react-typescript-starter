@@ -1,9 +1,9 @@
 export interface IEvent {
   name: string;
-  pending: boolean;
 }
 
-export interface IState {
+export interface IEventState {
   events: IEvent[];
   pending: false;
+  errors?: { [key: string]: string } | undefined;
 }

@@ -1,11 +1,12 @@
 import { Reducer, combineReducers } from "redux";
+import { eventsReducer as events, IEventState } from "../components/pages/events";
 
 export interface ApplicationState {
-  events: string[];
+  events: IEventState;
 }
 
 export const reducers = {
-  events: (state: any) => state
+  events
 };
 
 // export const createRootReducer = (rootReducer: {[key: string]: Reducer}) => {

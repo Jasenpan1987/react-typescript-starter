@@ -1,6 +1,11 @@
-import { configureStore, ApplicationState } from "./configure-store";
+import { configureStore } from "./configure-store";
+import { ApplicationState } from "./root-reducer";
 
-export type AppThunkAction<TAction> = (dispatch: (action: TAction) => void, getState: () => ApplicationState) => void;
+export type AppThunkAction =
+  (
+    dispatch: (action: any) => void,
+    getState: () => ApplicationState
+  ) => void;
 
 export { configureStore, ApplicationState };
 
@@ -14,8 +19,3 @@ export type baseAction<T, Payload, Meta> = {
   payload?: Payload;
   meta?: Meta;
 };
-
-// export const createAction =
-//   (config: {type: string; payload: any; meta: any; schema: any; errors: any }) => {
-//     if ()
-//   }
